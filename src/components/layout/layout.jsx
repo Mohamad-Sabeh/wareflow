@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+
 import SideBar from './sideBar';
 import TopBar from './topBar';
 
-function Layout({ children }) {
+function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -30,7 +32,7 @@ function Layout({ children }) {
         />
 
         <main className="min-h-[calc(100vh-5rem)] bg-slate-100 p-6">
-          {children}
+          <Outlet />
         </main>
 
       </div>

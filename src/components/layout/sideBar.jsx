@@ -1,4 +1,14 @@
+import { NavLink } from 'react-router-dom';
+
 function SideBar({ sidebarOpen, setSidebarOpen }) {
+
+  const navLinkClass = ({ isActive }) =>
+    `flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+      isActive
+      ? 'bg-slate-800 text-white'
+      : 'text-slate-400 hover:bg-slate-700 hover:text-white'
+    }`;
+
   return (
     <aside
       className={`fixed left-0 top-0 z-50 h-screen w-64 bg-slate-950 text-white shadow-2xl transition-transform duration-300 ${
@@ -40,30 +50,51 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
 
         <div className="space-y-1">
 
-          <button className="flex w-full items-center gap-3 rounded-lg bg-slate-800 px-3 py-2.5 text-sm font-medium text-white">
+          <NavLink
+            to="/"
+            end
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>⌂</span>
             Dashboard
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/products"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>▦</span>
             Products
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/inventory"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>◫</span>
             Inventory
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/orders"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>↗</span>
             Orders
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/shipments"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>□</span>
             Shipments
-          </button>
+          </NavLink>
 
         </div>
 
@@ -74,20 +105,32 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
 
         <div className="space-y-1">
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/suppliers"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>♙</span>
             Suppliers
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/customers"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>♧</span>
             Customers
-          </button>
+          </NavLink>
 
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+          <NavLink
+            to="/reports"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
             <span>▤</span>
             Reports
-          </button>
+          </NavLink>
 
         </div>
 
@@ -97,10 +140,14 @@ function SideBar({ sidebarOpen, setSidebarOpen }) {
       <div className="absolute bottom-0 w-full border-t border-slate-800 p-4">
 
         {/* Settings */}
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition hover:bg-slate-900 hover:text-white">
+        <NavLink
+          to="/settings"
+          onClick={() => setSidebarOpen(false)}
+          className={navLinkClass}
+        >
           <span>⚙</span>
           Settings
-        </button>
+        </NavLink>
 
         {/* User */}
         <div className="mt-4 flex items-center gap-3 rounded-lg bg-slate-900 p-3">
