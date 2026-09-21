@@ -1,4 +1,5 @@
 import StatsCards from '../dashboard/statsCards';
+import RecentOrders from '../dashboard/recentOrders';
 
 function Dashboard() {
   return (
@@ -19,6 +20,9 @@ function Dashboard() {
       <div className="mt-6">
         <StatsCards />
       </div>
+
+      {/* Recent Orders */}
+      <RecentOrders />
 
     </div>
   );

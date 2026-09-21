@@ -1,4 +1,21 @@
+
+import { useLocation } from 'react-router-dom';
+
 function TopBar({ setSidebarOpen }) {
+  const location = useLocation();
+
+  const pageTitles = {
+    '/': 'Dashboard',
+    '/products': 'Products',
+    '/inventory': 'Inventory',
+    '/orders': 'Orders',
+    '/shipments': 'Shipments',
+    '/suppliers': 'Suppliers',
+    '/customers': 'Customers',
+    '/reports': 'Reports',
+    '/settings': 'Settings',
+  };
+
   return (
     <header className="flex h-20 items-center justify-between border-b border-slate-800 bg-slate-950 px-6 text-white">
 
@@ -21,7 +38,7 @@ function TopBar({ setSidebarOpen }) {
           </p>
 
           <h2 className="text-xl font-semibold">
-            Dashboard
+            {pageTitles[location.pathname]}
           </h2>
         </div>
 
@@ -77,3 +94,4 @@ function TopBar({ setSidebarOpen }) {
 }
 
 export default TopBar;
+``
