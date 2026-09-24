@@ -1,25 +1,32 @@
 import { useState } from 'react';
 
-function AddProductForm({ onClose }) {
+function AddProductForm({ onAddProduct, onClose }) {
   const [productName, setProductName] = useState('');
   const [sku, setSku] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log({
-      productName,
+    const newProduct = {
+      id: Date.now(),
+      name: productName,
       sku,
       category,
-      price,
-      stock,
-    });
+      price: `$${price}`,
+      stock: Number(stock),
+      status:
+        Number(stock) === 0
+          ? 'Out of Stock'
+          : Number(stock) <= 5
+          ? 'Low Stock'
+          : 'In Stock',
+    };
 
-    onClose();
-  }
+    onAddProduct(newProduct);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +34,6 @@ function AddProductForm({ onClose }) {
       <div className="space-y-5 p-6">
 
         <div>
-
           <label className="mb-2 block text-sm font-medium text-slate-700">
             Product Name
           </label>
@@ -40,12 +46,9 @@ function AddProductForm({ onClose }) {
             className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400"
             required
           />
-
         </div>
 
-
         <div>
-
           <label className="mb-2 block text-sm font-medium text-slate-700">
             SKU
           </label>
@@ -54,16 +57,13 @@ function AddProductForm({ onClose }) {
             type="text"
             value={sku}
             onChange={(event) => setSku(event.target.value)}
-            placeholder="Example: REF-001"
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+            placeholder="Enter SKU"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400"
             required
           />
-
         </div>
 
-
         <div>
-
           <label className="mb-2 block text-sm font-medium text-slate-700">
             Category
           </label>
@@ -74,38 +74,16 @@ function AddProductForm({ onClose }) {
             className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-400"
             required
           >
-            
-            <option value="">
-              Select a category
-            </option>
-
-            <option value="Kitchen Equipment">
-              Kitchen Equipment
-            </option>
-
-            <option value="Utensils">
-              Utensils
-            </option>
-
-            <option value="Food">
-              Food
-            </option>
-
-            <option value="Machines">
-              Machines
-            </option>
-
-            <option value="Other">
-              Other
-            </option>
-
+            <option value="">Select a category</option>
+            <option value="Kitchen Equipment">Kitchen Equipment</option>
+            <option value="Utensils">Utensils</option>
+            <option value="Food">Food</option>
+            <option value="Machines">Machines</option>
+            <option value="Other">Other</option>
           </select>
-
         </div>
 
-
         <div>
-
           <label className="mb-2 block text-sm font-medium text-slate-700">
             Price
           </label>
@@ -120,14 +98,11 @@ function AddProductForm({ onClose }) {
             className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400"
             required
           />
-
         </div>
 
-
         <div>
-
           <label className="mb-2 block text-sm font-medium text-slate-700">
-            Initial Stock
+            Stock
           </label>
 
           <input
@@ -139,11 +114,9 @@ function AddProductForm({ onClose }) {
             className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400"
             required
           />
-
         </div>
 
       </div>
-
 
       <div className="flex justify-end gap-3 border-t border-slate-200 p-6">
 

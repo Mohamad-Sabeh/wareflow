@@ -88,6 +88,15 @@ function Layout() {
     );
   }
 
+  function addProduct(newProduct) {
+    setProducts((currentProducts) => [
+      ...currentProducts,
+      newProduct,
+    ]);
+
+    setAddProductOpen(false);
+  }
+
   return (
     <div className="min-h-screen bg-slate-100">
 
@@ -131,6 +140,7 @@ function Layout() {
           onClose={() => setAddProductOpen(false)}
         >
           <AddProductForm
+            onAddProduct={addProduct}
             onClose={() => setAddProductOpen(false)}
           />
         </Modal>
