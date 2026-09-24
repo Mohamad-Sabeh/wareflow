@@ -2,61 +2,19 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 function Products() {
-  const { openAddProduct } = useOutletContext();
+  const {
+    openAddProduct,
+    products,
+    openEditProduct,
+    deleteProduct,
+  } = useOutletContext();
 
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All Categories');
   const [status, setStatus] = useState('All Status');
 
-  const products = [
-    {
-      id: 1,
-      name: 'Industrial Refrigerator',
-      sku: 'REF-001',
-      category: 'Kitchen Equipment',
-      price: '$1,200',
-      stock: 8,
-      status: 'In Stock',
-    },
-    {
-      id: 2,
-      name: 'Commercial Microwave',
-      sku: 'MIC-002',
-      category: 'Kitchen Equipment',
-      price: '$450',
-      stock: 4,
-      status: 'Low Stock',
-    },
-    {
-      id: 3,
-      name: 'Stainless Steel Spoon',
-      sku: 'SPO-003',
-      category: 'Utensils',
-      price: '$3',
-      stock: 120,
-      status: 'In Stock',
-    },
-    {
-      id: 4,
-      name: 'Food Processor',
-      sku: 'FPR-004',
-      category: 'Kitchen Equipment',
-      price: '$280',
-      stock: 0,
-      status: 'Out of Stock',
-    },
-    {
-      id: 5,
-      name: 'Commercial Blender',
-      sku: 'BLD-005',
-      category: 'Kitchen Equipment',
-      price: '$350',
-      stock: 12,
-      status: 'In Stock',
-    },
-  ];
-
   const filteredProducts = products.filter((product) => {
+
     const matchesSearch =
       product.name.toLowerCase().includes(search.toLowerCase()) ||
       product.sku.toLowerCase().includes(search.toLowerCase());
@@ -78,6 +36,7 @@ function Products() {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
         <div>
+
           <h1 className="text-3xl font-bold text-slate-900">
             Products
           </h1>
@@ -85,6 +44,7 @@ function Products() {
           <p className="mt-2 text-slate-500">
             Manage the products in your warehouse.
           </p>
+
         </div>
 
         <button
@@ -171,6 +131,10 @@ function Products() {
                   Status
                 </th>
 
+                <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Actions
+                </th>
+
               </tr>
 
             </thead>
@@ -185,9 +149,11 @@ function Products() {
                 >
 
                   <td className="whitespace-nowrap px-6 py-4">
+
                     <p className="text-sm font-medium text-slate-900">
                       {product.name}
                     </p>
+
                   </td>
 
                   <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
@@ -219,6 +185,26 @@ function Products() {
                     >
                       {product.status}
                     </span>
+
+                  </td>
+
+                  <td className="whitespace-nowrap px-6 py-4 text-right">
+
+                    <button
+                      type="button"
+                      onClick={() => openEditProduct(product)}
+                      className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => deleteProduct(product.id)}
+                      className="rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 hover:text-red-700"
+                    >
+                      Delete
+                    </button>
 
                   </td>
 
