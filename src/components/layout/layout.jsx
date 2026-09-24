@@ -4,19 +4,21 @@ import { Outlet } from 'react-router-dom';
 import SideBar from './sideBar';
 import TopBar from './topBar';
 
+import Modal from '../common/modal';
+import AddProductForm from '../common/addProductForm';
+
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [addProductOpen, setAddProductOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-100">
 
-      {/* Sidebar */}
       <SideBar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
 
-      {/* Dark and blurred background */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
@@ -24,7 +26,6 @@ function Layout() {
         />
       )}
 
-      {/* Main application */}
       <div className="min-h-screen">
 
         <TopBar
@@ -32,10 +33,30 @@ function Layout() {
         />
 
         <main className="min-h-[calc(100vh-5rem)] bg-slate-100 p-6">
-          <Outlet />
+
+          <Outlet
+            context={{
+              openAddProduct: () => setAddProductOpen(true),
+            }}
+          />
+
         </main>
 
       </div>
+
+
+      {addProductOpen && (
+        <Modal
+          title="Add Product"
+          onClose={() => setAddProductOpen(false)}
+        >
+
+          <AddProductForm
+            onClose={() => setAddProductOpen(false)}
+          />
+
+        </Modal>
+      )}
 
     </div>
   );
