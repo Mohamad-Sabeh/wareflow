@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 function Products() {
   const { openAddProduct } = useOutletContext();
+
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('All Categories');
+  const [status, setStatus] = useState('All Status');
 
   const products = [
     {
@@ -51,15 +56,28 @@ function Products() {
     },
   ];
 
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(search.toLowerCase()) ||
+      product.sku.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      category === 'All Categories' ||
+      product.category === category;
+
+    const matchesStatus =
+      status === 'All Status' ||
+      product.status === status;
+
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
+
   return (
     <div>
-
-      {/* Page Header */}
 
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
         <div>
-
           <h1 className="text-3xl font-bold text-slate-900">
             Products
           </h1>
@@ -67,7 +85,6 @@ function Products() {
           <p className="mt-2 text-slate-500">
             Manage the products in your warehouse.
           </p>
-
         </div>
 
         <button
@@ -80,20 +97,21 @@ function Products() {
 
       </div>
 
-
-      {/* Search and Filters */}
-
       <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
 
         <div className="flex flex-col gap-3 md:flex-row">
 
           <input
             type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
             placeholder="Search products..."
             className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400"
           />
 
           <select
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
             className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-400"
           >
             <option>All Categories</option>
@@ -105,6 +123,8 @@ function Products() {
           </select>
 
           <select
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
             className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-400"
           >
             <option>All Status</option>
@@ -116,9 +136,6 @@ function Products() {
         </div>
 
       </div>
-
-
-      {/* Products Table */}
 
       <div className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
 
@@ -160,7 +177,7 @@ function Products() {
 
             <tbody className="divide-y divide-slate-200">
 
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
 
                 <tr
                   key={product.id}
@@ -168,11 +185,9 @@ function Products() {
                 >
 
                   <td className="whitespace-nowrap px-6 py-4">
-
                     <p className="text-sm font-medium text-slate-900">
                       {product.name}
                     </p>
-
                   </td>
 
                   <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
