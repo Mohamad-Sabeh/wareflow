@@ -39,7 +39,7 @@ function InventoryOverview() {
 
         <div className="mb-6 flex items-center justify-center">
 
-          <div className="flex h-40 w-40 items-center justify-center rounded-full border-[18px] border-green-500">
+          <div className="flex h-40 w-40 items-center justify-center rounded-full border-18 border-green-500">
 
             <div className="text-center">
               <p className="text-3xl font-bold text-slate-900">

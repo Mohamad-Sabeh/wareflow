@@ -1,19 +1,24 @@
+import { Link } from 'react-router-dom';
+
 function QuickActions() {
   const actions = [
     {
       title: 'Add Product',
       description: 'Add a new product to inventory',
       icon: '+',
+      path: '/products',
     },
     {
       title: 'Create Order',
       description: 'Create a new customer order',
       icon: '↗',
+      path: '/orders',
     },
     {
       title: 'Add Supplier',
       description: 'Register a new supplier',
       icon: '♙',
+      path: '/suppliers',
     },
   ];
 
@@ -36,9 +41,9 @@ function QuickActions() {
 
         {actions.map((action) => (
 
-          <button
+          <Link
             key={action.title}
-            type="button"
+            to={action.path}
             className="flex w-full items-center gap-4 rounded-lg border border-slate-200 p-4 text-left transition hover:border-slate-300 hover:bg-slate-50"
           >
 
@@ -62,7 +67,7 @@ function QuickActions() {
               →
             </span>
 
-          </button>
+          </Link>
 
         ))}
 
